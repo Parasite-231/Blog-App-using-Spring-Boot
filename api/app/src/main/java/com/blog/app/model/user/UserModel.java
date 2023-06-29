@@ -54,7 +54,7 @@ public class UserModel {
         this.email = email;
     }
 
-    private int age ;
+    private Integer age ;
 
     public Long getUserId() {
         return userId;
