@@ -1,6 +1,9 @@
 package com.blog.app.model.user;
 
 import com.blog.app.model.blog.BlogModel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,6 +17,9 @@ import java.util.List;
                 columnNames = "email"
         )
 )
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 
 public class UserModel {
 
@@ -82,7 +88,7 @@ public class UserModel {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_userId",referencedColumnName = "userId")
-    private List<BlogModel> blogModelList;
+    private List<BlogModel> blogModels;
 
 
 }

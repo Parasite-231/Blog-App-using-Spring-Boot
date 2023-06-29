@@ -1,6 +1,7 @@
 package com.blog.app.controller.user;
 
 import com.blog.app.model.user.UserModel;
+import com.blog.app.repository.user.UserRepository;
 import com.blog.app.service.user.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,15 +11,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/")
 public class UserController {
     @Autowired
     private UserServiceImplementation userService;
 
 
+
     @PostMapping ("/add-user")
-    public ResponseEntity<?> addUser(@RequestBody UserModel userModel){
-        userService.addUser(userModel);
+    public ResponseEntity<?> addUser(@RequestBody UserModel user){
+        userService.addUser(user);
         return ResponseEntity.status(HttpStatus.OK).body("User Added Successfully");
     }
 
@@ -54,7 +57,6 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
     }
-
 
 
 

@@ -2,6 +2,9 @@ package com.blog.app.model.blog;
 
 
 import com.blog.app.model.user.UserModel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,8 +13,11 @@ import javax.persistence.*;
         name = "blog"
 
 )
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BlogModel {
+
 
     @Id
     @SequenceGenerator(
@@ -29,7 +35,8 @@ public class BlogModel {
     )
     private Long blogId;
     @Column(
-            name = "blogPost"
+            name = "blogPost",
+            nullable = false
 
     )
 
@@ -65,10 +72,13 @@ public class BlogModel {
     }
 
 
-//    private createdAt ;
+
 
     @ManyToOne
     @JoinColumn(name = "fk_userId")
-   private UserModel userModel;
+
+    private UserModel userModel;
+
+
 
 }
