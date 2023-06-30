@@ -1,5 +1,5 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import UserPostList from "./component/UserPostList";
+import UserBlogList from "./page/UserBlogList";
 import UserListPage from "./page/UserListPage";
 
 
@@ -10,7 +10,7 @@ function App() {
       {/* //Platform selection  Pages */}
       <Route
         path="/"
-        element={<UserPostList />}
+        element={<UserBlogList />}
       />
       <Route
         path="/user-list"

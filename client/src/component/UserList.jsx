@@ -18,6 +18,21 @@ export default function UserList() {
       });
   }, []);
 
+  const deleteUser = (userId) => {
+    axios
+      .delete(`http://localhost:8080/users/delete-user/${userId}`)
+      .then((response) => {
+        // Remove the deleted user from the user list
+        const updatedUserList = userList.filter(
+          (user) => user.userId !== userId
+        );
+        setUserList(updatedUserList);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
   // Calculate total pages
   const totalPages = Math.ceil(userList.length / usersPerPage);
 
@@ -43,6 +58,7 @@ export default function UserList() {
               <th scope="col">Username</th>
               <th scope="col">Email</th>
               <th scope="col">Age</th>
+              <th scope="col">Remove</th>
             </tr>
           </thead>
           <tbody>
@@ -52,6 +68,15 @@ export default function UserList() {
                 <td>{user.username}</td>
                 <td>{user.email}</td>
                 <td>{user.age}</td>
+                <td>
+                  <button
+                    type="button"
+                    onClick={() => deleteUser(user.userId)}
+                    className="btn btn-danger"
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
