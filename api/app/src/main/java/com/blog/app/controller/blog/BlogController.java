@@ -26,36 +26,35 @@ public class BlogController {
     private BlogServiceImplementation blogService;
     private UserModel userModel;
 
+
+
     public BlogController(UserService userService) {
         this.userService = userService;
     }
-    @GetMapping("/")
+    @GetMapping("/all-blogs")
     public ResponseEntity<?> getAllBlog() {
-        try {
+
             List<BlogModel> blogs = blogService.getAllBlogPost();
             System.out.println(blogs);
             return ResponseEntity.status(HttpStatus.OK).body(blogs);
-        } catch (Exception e) {
-            // Handle any exceptions that occur
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
-        }
+
     }
 
 
     //One to Many
-    @PostMapping("/post-blog")
-    public ResponseEntity<?> postBlog(@RequestBody BlogModel blog) {
-        Long userId = blog.getUserModel().getUserId(); // user ID nested within the UserModel object
-        UserModel user = userService.getSearchedUser(userId); // getSearchedUser method invoked
-
-        if (user != null) {
-            blog.setUserModel(user);
-            blogService.postBlog(blog);
-            return ResponseEntity.status(HttpStatus.OK).body("Blog added");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-        }
-    }
+//    @PostMapping("/post-blog")
+//    public ResponseEntity<?> postBlog(@RequestBody BlogModel blog) {
+//        Long userId = blog.getUserModel().getUserId(); // user ID nested within the UserModel object
+//        UserModel user = userService.getSearchedUser(userId); // getSearchedUser method invoked
+//
+//        if (user != null) {
+//            blog.setUserModel(user);
+//            blogService.postBlog(blog);
+//            return ResponseEntity.status(HttpStatus.OK).body("Blog added");
+//        } else {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+//        }
+//    }
 
 //    @GetMapping("/{userId}")
 //    public ResponseEntity<?> getBlogsByUserId(@PathVariable Long userId) {
@@ -70,7 +69,7 @@ public class BlogController {
 
 //    @GetMapping("/{userId}")
 //    public ResponseEntity<?> getBlogsByUserId(@PathVariable Long userId) {
-//        List<BlogModel> blogs = blogRepository.(userId);
+//        List<BlogModel> blogs = blogService.getAllBlogByUserId(userId);
 //
 //        if (!blogs.isEmpty()) {
 //            return ResponseEntity.ok(blogs);

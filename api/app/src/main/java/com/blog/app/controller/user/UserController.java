@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
-@RequestMapping("/")
+@RequestMapping("/users")
 public class UserController {
     @Autowired
     private UserServiceImplementation userService;
@@ -26,13 +26,13 @@ public class UserController {
     }
 
 
-    @GetMapping("/users")
+    @GetMapping("/all-users")
     public ResponseEntity<?> getAllUser() {
         List<UserModel> users = userService.getAllUser();
         return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
-    @GetMapping("/users/{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<?> getSearchedUser(@PathVariable Long userId) {
         UserModel user = userService.getSearchedUser(userId);
         if (user != null) {
