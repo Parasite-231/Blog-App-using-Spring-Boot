@@ -1,8 +1,6 @@
 package com.blog.app.model.blog;
 
 
-import com.blog.app.model.user.UserModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

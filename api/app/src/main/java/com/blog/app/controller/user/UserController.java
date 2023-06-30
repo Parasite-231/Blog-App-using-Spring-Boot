@@ -16,9 +16,11 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserServiceImplementation userService;
+ private  UserRepository userRepository;
 
-
-
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
     @PostMapping ("/add-user")
     public ResponseEntity<?> addUser(@RequestBody UserModel user){
         userService.addUser(user);
@@ -58,8 +60,29 @@ public class UserController {
         }
     }
 
+    @GetMapping("/bloggers")
+    public ResponseEntity<List<UserModel>> findBlogsWithUser() {
+        List<UserModel> bloggers = userRepository.findBloggers();
 
 
+
+        if (!bloggers.isEmpty()) {
+            return ResponseEntity.ok(bloggers);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @GetMapping("/bloggers/{userId}")
+    public ResponseEntity<List<UserModel>> findSpecificBlogFromBlogger(@PathVariable Long userId) {
+        List<UserModel> bloggers = userRepository.findSpecificBlogFromBlogger(userId);
+
+        if (!bloggers.isEmpty()) {
+            return ResponseEntity.ok(bloggers);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
 
 
 }

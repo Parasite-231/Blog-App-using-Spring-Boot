@@ -28,17 +28,21 @@ public class BlogController {
 
 
 
-    public BlogController(UserService userService) {
-        this.userService = userService;
+    public BlogController(BlogRepository blogRepository) {
+        this.blogRepository = blogRepository;
     }
-    @GetMapping("/all-blogs")
-    public ResponseEntity<?> getAllBlog() {
 
-            List<BlogModel> blogs = blogService.getAllBlogPost();
-            System.out.println(blogs);
-            return ResponseEntity.status(HttpStatus.OK).body(blogs);
-
-    }
+//    public BlogController(UserService userService) {
+//        this.userService = userService;
+//    }
+//    @GetMapping("/all-blogs")
+//    public ResponseEntity<?> getAllBlog() {
+//
+//            List<BlogModel> blogs = blogService.getAllBlogPost();
+//            System.out.println(blogs);
+//            return ResponseEntity.status(HttpStatus.OK).body(blogs);
+//
+//    }
 
 
     //One to Many
@@ -66,7 +70,26 @@ public class BlogController {
 //        }
 //    }
 
+    @GetMapping("/all-blog")
+    public ResponseEntity<List<BlogModel>> getAllBlogs() {
+        List<BlogModel> blogs = blogRepository.findAllBlogs();
 
+        if (!blogs.isEmpty()) {
+            return ResponseEntity.ok(blogs);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+//    @GetMapping("/bloggers")
+//    public ResponseEntity<List<BlogModel>> findBlogsWithUser() {
+//        List<BlogModel> blogs = blogRepository.findBlogsWithUser();
+//
+//        if (!blogs.isEmpty()) {
+//            return ResponseEntity.ok(blogs);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//        }
+//    }
 //    @GetMapping("/{userId}")
 //    public ResponseEntity<?> getBlogsByUserId(@PathVariable Long userId) {
 //        List<BlogModel> blogs = blogService.getAllBlogByUserId(userId);
